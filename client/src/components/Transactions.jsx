@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext.jsx";
 
-import dummyData from "../utils/dummyData";
-
 import { shortenAddress } from "../utils/shortenAddress.js";
 
 import useFetch from "../hooks/useFetch.jsx";
@@ -36,23 +34,15 @@ const TransactionsCard = ({
             rel="noreferrer"
           >
             <p className="text-white text-base">
-              From: {shortenAddress(addressFrom)}
+              来自: {shortenAddress(addressFrom)}
             </p>
           </a>
-          <a
-            href={`https://ropsten.etherscan.io/address/${addressTo}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <p className="text-white text-base">
-              To: {shortenAddress(addressTo)}
-            </p>
-          </a>
-          <p className="text-white text-base">Amount: {amount} ETH</p>
+        
+          <p className="text-white text-base">捐赠: {amount} SepoliaETH</p>
           {message && (
             <>
               <br />
-              <p className="text-white text-base">Message: {message}</p>
+              <p className="text-white text-base">观点: {message}</p>
             </>
           )}
         </div>
@@ -77,11 +67,11 @@ const Transactions = () => {
       <div className="flex flex-col md:p-12 py-12 px-4">
         {currentAccount ? (
           <h3 className="text-white text-3xl text-center my-2">
-            Latest Transactions
+            最近发布
           </h3>
         ) : (
           <h3 className="text-white text-3xl text-center my-2">
-            Connect your account to see the latest transactions
+            连接到钱包查看公众讨论
           </h3>
         )}
 

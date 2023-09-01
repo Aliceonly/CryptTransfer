@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { AiFillPlayCircle,AiFillCheckCircle } from "react-icons/ai";
+import { AiFillPlayCircle, AiFillCheckCircle } from "react-icons/ai";
 import { PiShootingStarFill } from "react-icons/pi";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import { TransactionContext } from "../context/TransactionContext";
 
 import { Loader } from ".";
-import {shortenAddress } from "../utils/shortenAddress";
+import { shortenAddress } from "../utils/shortenAddress";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -22,17 +22,33 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
   />
 );
 
-const handleChange = () => {};
+const Textarea = ({ placeholder, name, type, value, handleChange }) => (
+  <textarea
+    placeholder={placeholder}
+    type={type}
+    step="0.0001"
+    value={value}
+    onChange={(e) => handleChange(e, name)}
+    className="my-3 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+  ></textarea>
+);
 
 const Welcome = () => {
-  const { connectWallet, currentAccount, formData, sendTransaction, handleChange, isLoading } = useContext(TransactionContext);
+  const {
+    connectWallet,
+    currentAccount,
+    formData,
+    sendTransaction,
+    handleChange,
+    isLoading,
+  } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
     const { addressTo, amount, keyword, message } = formData;
 
     e.preventDefault();
 
-    if(!addressTo || !amount || !keyword || !message) return;
+    if (!addressTo || !amount || !keyword || !message) return;
 
     sendTransaction();
   };
@@ -40,12 +56,18 @@ const Welcome = () => {
     <div className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
-          <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-            Send Crypto <br /> across the world
+          <h1 className="text-3xl sm:text-5xl text-lime-500 text-gradient py-1">
+            区 块 链 <br /> 迈向碳中和的一步
           </h1>
-          <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Explore the crypto world. Buy and sell cryptocurrencies easily on
-            Krypto.
+          <p className="text-left mt-5 text-white font-light md:w-8/10 w-9/10 text-base">
+            多年来，人们一直对区块链的环境成本表示担忧。
+            <br />
+            加密货币经常被指责消耗大量能源，是一场绝对的气候灾难。
+            <br />
+            作为回应，加密行业必须改变方向，通过采用绿色区块链战略来实现碳中和。
+            <br />
+            <br />
+            您可以为区块链碳中和事业献上您的财富与意见：
           </p>
           {!currentAccount ? (
             <button
@@ -55,7 +77,7 @@ const Welcome = () => {
             >
               <AiFillPlayCircle className="text-white mr-2" />
               <p className="text-white text-base font-semibold">
-                Connect Wallet
+                连接到MetaMask
               </p>
             </button>
           ) : (
@@ -66,25 +88,26 @@ const Welcome = () => {
             >
               <AiFillCheckCircle className="text-white mr-2" />
               <p className="text-white text-base font-semibold">
-                Connected ! ! <PiShootingStarFill className="text-white mr-2 inline"/>
+                已连接 ! !{" "}
+                <PiShootingStarFill className="text-white mr-2 inline" />
               </p>
             </button>
           )}
 
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
-              Reliability
+              工作量证明
             </div>
-            <div className={companyCommonStyles}>Security</div>
+            <div className={companyCommonStyles}>环境成本</div>
             <div className={`sm:rounded-tr-2xl ${companyCommonStyles}`}>
-              Ethereum
+              能源消耗
             </div>
             <div className={`sm:rounded-bl-2xl ${companyCommonStyles}`}>
-              Web 3.0
+              碳足迹
             </div>
-            <div className={companyCommonStyles}>Low Fees</div>
+            <div className={companyCommonStyles}>气候灾害</div>
             <div className={`rounded-br-2xl ${companyCommonStyles}`}>
-              Blockchain
+              环境恶化
             </div>
           </div>
         </div>
@@ -103,7 +126,7 @@ const Welcome = () => {
                   {shortenAddress(currentAccount)}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
-                  Ethereum
+                  Sepolia Network
                 </p>
               </div>
             </div>
@@ -117,19 +140,19 @@ const Welcome = () => {
               handleChange={handleChange}
             />
             <Input
-              placeholder="Amount (ETH)"
+              placeholder="捐赠 (任何数额的SepoliaETH)"
               name="amount"
               type="number"
               handleChange={handleChange}
             />
             <Input
-              placeholder="Keyword (Gif)"
+              placeholder="关键词 (Gif)"
               name="keyword"
               type="text"
               handleChange={handleChange}
             />
-            <Input
-              placeholder="Enter Message"
+            <Textarea
+              placeholder="您的意见"
               name="message"
               type="text"
               handleChange={handleChange}
